@@ -1,0 +1,15 @@
+# Los archivos y carpetas que se deben ignorar 
+# de subir al repositorio de Git
+
+# Contiene variables sensibles
+terraform.tfvars
+# Contiene datos privado
+*.tfstate
+*.tfstate.backup
+# Contiene datos de configuración local
+.terraform/
+# Lock del proveedor
+.terraform.lock.hcl
+.terraform.tfstate.lock.info
+# Editor VSCode
+.vscode/
