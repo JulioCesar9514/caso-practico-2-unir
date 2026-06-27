@@ -1,0 +1,13 @@
+[Unit]
+Description=Web HTTPS UNIR - Caso Practico 2
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/podman run --rm \
+  -p 8443:443 \
+  {{ acr_login_server }}/web-nginx:{{ image_tag }}
+
+Restart=always
+
+[Install]
+WantedBy=default.target

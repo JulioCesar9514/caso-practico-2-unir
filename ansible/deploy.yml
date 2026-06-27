@@ -1,0 +1,50 @@
+---
+- name: Despliegue Caso Practico 2
+  hosts: podman_vm
+  become: true
+
+  tasks:
+
+    - name: Actualizar paquetes
+      apt:
+        update_cache: yes
+
+    - name: Instalar Podman
+      apt:
+        name: podman
+        state: present
+
+    - name: Login en ACR (rootless)
+      become: false
+      command: >
+        podman login {{ acr_login_server }}
+        -u {{ acr_username }}
+        -p {{ acr_password }}
+
+    - name: Descargar imagen desde ACR
+      become: false
+      command: >
+        podman pull {{ acr_login_server }}/web-nginx:{{ image_tag }}
+
+    - name: Crear directorio systemd de usuario
+      become: false
+      file:
+        path: "/home/{{ ansible_user }}/.config/systemd/user"
+        state: directory
+
+    - name: Copiar servicio systemd
+      become: false
+      template:
+        src: web.service.j2
+        dest: "/home/{{ ansible_user }}/.config/systemd/user/web.service"
+
+    - name: Activar linger
+      command: loginctl enable-linger {{ ansible_user }}
+
+    - name: Recargar systemd usuario
+      become: false
+      command: systemctl --user daemon-reload
+
+    - name: Habilitar e iniciar servicio
+      become: false
+      command: systemctl --user enable --now web.service

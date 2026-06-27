@@ -3,13 +3,38 @@
 
 # Contiene variables sensibles
 terraform.tfvars
+
 # Contiene datos privado
 *.tfstate
 *.tfstate.backup
+crash.log
+crash.*.log
+
 # Contiene datos de configuración local
 .terraform/
+
 # Lock del proveedor
 .terraform.lock.hcl
 .terraform.tfstate.lock.info
+
 # Editor VSCode
 .vscode/
+.DS_Store
+Thums.db
+
+# Archivos de Ansible creados automaticamente
+ansible/group_vars/all.yml
+ansible/hosts.ini
+
+# Python cache
+__pycache__/
+*.pyc
+
+# SSH
+*.pem   
+*.key
+*.pub
+
+# Logs
+*.log
+logs/
