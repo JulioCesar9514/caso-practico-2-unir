@@ -39,11 +39,11 @@ __pycache__/
 *.log
 logs/
 
-# Certificados y claves
-certs/
+# Carpetas sensibles dentro de web/
+web/auth/
+web/certs/
+
+# Archivos sensibles
 *.crt
 *.key
-
-# Autenticación
-auth/
 .htpasswd
