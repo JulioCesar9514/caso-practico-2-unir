@@ -38,3 +38,12 @@ __pycache__/
 # Logs
 *.log
 logs/
+
+# Certificados y claves
+certs/
+*.crt
+*.key
+
+# Autenticación
+auth/
+.htpasswd
