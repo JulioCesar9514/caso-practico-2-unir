@@ -56,9 +56,14 @@ El objetivo es que **cualquier usuario pueda desplegar toda la solucion con un u
 - Azure CLI instalado  
 - Terraform instalado  
 - Ansible instalado  
-- Claves SSH generadas en `~/.ssh/id_rsa.pub`  
+- Claves SSH generadas en `~/.ssh/id_rsa.pub` 
 - Permisos en la suscripcion de Azure
 
+## Crear clave SSH
+
+```Shell
+ssh-keygen -t rsa -b 4096
+```
 ---
 
 ## Ejecucion
@@ -66,7 +71,7 @@ El objetivo es que **cualquier usuario pueda desplegar toda la solucion con un u
 Clonar el repositorio:
 
 ```text
-git clone <URL_DEL_REPO>
+git clone https://github.com/JulioCesar9514/caso-practico-2-unir.git
 cd caso-practico-2-unir
 ./deployCompleto.sh
 ```
@@ -96,18 +101,29 @@ Introducir usuario y contraseña de la aplicacion.
 .
 ├── ansible/  
 │   ├── deploy.yml  
-│   ├── hosts.ini  
+│   ├── hosts.ini (se crea auto)
+│   ├── ansible.cfg  
 │   └── templates/  
 │       └── web.service.j2
+│   └── group_vars/
+│       └── All.yml (se crea auto)
 ├── scripts/
 │   └── buildPush.sh
 ├── terraform/
+│   ├── acr.tf
 │   ├── main.tf
+│   ├── network.tf
 │   ├── variables.tf
 │   ├── outputs.tf
-│   └── terraform.tfvars (generado automaticamente)
+│   ├── README.md
+│   ├── vm.tf
+│   └── terraform.tfvars (se crea automaticamente)
 ├── logs/
 │   └── deploy_YYYYMMDD_HHMMSS.log
+├── web/
+│   └── Dockerfile
+│   └── index.html
+│   └── nginx.conf
 └── deployCompleto.sh
 ```
 
@@ -115,7 +131,7 @@ Introducir usuario y contraseña de la aplicacion.
 ```text
 El script esta diseñado para ser 100% reproducible.
 No requiere editar archivos.
-Funciona en WSL, Linux, Windows y macOS.
+Funciona en windows con WSL.
 Se puede desplegar todo con un unico comando.
 ```
 

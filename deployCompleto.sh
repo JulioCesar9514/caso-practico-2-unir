@@ -46,6 +46,9 @@ if [ -z "$SUBSCRIPTION_ID" ]; then
     echo "Cuando Azure CLI muestre un codigo en pantalla,"
     echo "introduce ese codigo en la web."
     echo ""
+    echo "Nota: Puede que la ventana de autenticacion se abra de fondo,"
+    echo "revisa tu navegador si no la ves."
+    echo ""
     echo "El script continuara automaticamente cuando completes el login."
     echo ""
     echo "───────────────────────────────────────────────────────────────"
@@ -83,6 +86,7 @@ echo "Archivo terraform.tfvars generado correctamente."
 echo ""
 echo "─── 1. Destruyendo infraestructura con Terraform ───"
 cd terraform
+terraform init -upgrade
 terraform destroy -auto-approve || true
 
 echo ""
@@ -95,6 +99,7 @@ echo "Resource Group eliminado correctamente."
 
 echo ""
 echo "─── 2. Creando infraestructura con Terraform ───"
+terraform init -upgrade
 terraform apply -auto-approve
 
 echo ""
