@@ -32,8 +32,17 @@ resource "local_file" "ansible_inventory" {
   EOT
 }
 
-# Crea automaticamente group_vars/all.yml con credenciales del ACR
+# Crear carpeta group_vars si no existe
+resource "null_resource" "create_group_vars_dir" {
+  provisioner "local-exec" {
+    command = "mkdir -p ${path.module}/../ansible/group_vars"
+  }
+}
+
+# Crear automaticamente group_vars/all.yml con credenciales del ACR
 resource "local_file" "ansible_group_vars" {
+  depends_on = [null_resource.create_group_vars_dir]
+
   filename = "${path.module}/../ansible/group_vars/all.yml"
   content  = <<-EOT
     # Archivo generado automaticamente por Terraform - NO editar a mano.
